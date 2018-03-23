@@ -12,16 +12,9 @@
 
         <el-form-item label="性别" :label-width="formLabelWidth">
           <el-select v-model="user.sex" placeholder="请选择">
-            <el-option
-              label="男"
-              value="男">
-            </el-option>
-            <el-option
-              label="女"
-              value="女">
-            </el-option>
+            <el-option label="男" value="男"></el-option>
+            <el-option label="女" value="女"></el-option>
           </el-select>
-          <!--<el-input v-model="user.sex" auto-complete="off"></el-input>-->
         </el-form-item>
         <el-form-item label="生日" :label-width="formLabelWidth">
           <el-date-picker value-format="yyyy-MM-dd" type="date" :editable="false"  v-model="user.birthday" auto-complete="off"></el-date-picker>
