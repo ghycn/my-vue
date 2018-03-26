@@ -9,7 +9,7 @@
         <el-form-item label="年龄" :label-width="formLabelWidth"  prop="age">
           <el-input v-model.number="user.age" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="性别" :label-width="formLabelWidth" >
+        <el-form-item label="性别" :label-width="formLabelWidth" prop="sex">
           <el-radio  v-model="user.sex" label="男">男</el-radio>
           <el-radio  v-model="user.sex" label="女">女</el-radio>
         </el-form-item>
@@ -45,7 +45,10 @@
           ],
           birthday:[
             { required: true, message: '生日不能为空',trigger: 'change'}
-          ]
+          ],
+          sex: [
+            { required: true, message: '请选性别', trigger: 'change' }
+          ],
         }
       }
     },
