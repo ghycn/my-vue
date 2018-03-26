@@ -132,7 +132,7 @@
         });
       },
       close (formData){//关闭模态窗
-        this.$refs[formData].resetFields();//重置表单状态
+        this.$refs[formData].resetFields();//重置表单
         this.$emit('update:show', false);//设置父页面show属性为false
       }
     }

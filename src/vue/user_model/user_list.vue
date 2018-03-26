@@ -14,6 +14,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
+          <el-button  @click="resetForm">重置</el-button>
           <el-button type="primary" @click="refreshList">查询</el-button>
           <el-button type="success" @click="handleEdit('')">添加</el-button>
         </el-form-item>
@@ -101,7 +102,9 @@
           }
         )
       },
-
+      resetForm (){//重置表单
+        this.condition={};
+      },
       //每页显示数据量变更
       handleSizeChange: function (val) {
         console.log(val)
