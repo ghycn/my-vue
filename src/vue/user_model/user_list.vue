@@ -9,6 +9,9 @@
     width: 60%;
     margin: auto;
   }
+  .el-form-item__content{
+    text-align: left;
+  }
 </style>
 <template>
   <div>
@@ -35,6 +38,18 @@
         </template>
       </el-table-column>
     </el-table>
+    <!--分页组件-->
+    <div class="block">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="pagination.currentPage"
+        :page-size="pagination.pagesize"
+        layout="total, prev, pager, next, jumper"
+        :total="pagination.total">
+      </el-pagination>
+    </div>
     <!-- 引用模态窗 -->
     <my-dialog ref="myDialog" :show.sync="show" @refreshList="refresList"></my-dialog>
   </div>
@@ -45,8 +60,13 @@
   export default {
     data () {
       return {
-        show: false,
-        tableData: [],
+        pagination: {//分页对象
+          currentPage: 1,//当前页码
+          pagesize: 10,//默认每页数据量
+          total:0//数据总条数
+        },
+        show: false,//模态窗默认隐藏
+        tableData: [],//列表数据
       }
     },
     components: {
@@ -56,18 +76,34 @@
       this.refresList();
     },
     methods: {
-     refresList(){
-        this.$http.get('/api/userList.do').then(
+     refresList:function(){
+        this.$http.get('/api/userList.do',{
+          params:{'currentPage':this.pagination.currentPage,'pagesize':this.pagination.pagesize}
+        }).then(
           (response) => {
             // 处理成功的结果
-            this.tableData = response.data
+            this.tableData = response.data.list;
+            this.pagination.total=response.data.total;
           }, (response) => {
             // 处理失败的结果
             console.log('失败')
           }
         )
       },
-      handleEdit (id) {
+
+      //每页显示数据量变更
+      handleSizeChange: function(val) {
+        this.pagination.pagesize = val;
+        this.refresList();
+      },
+
+      //页码变更
+      handleCurrentChange: function(val) {
+        this.pagination.currentPage = val;
+        this.refresList();
+      },
+
+      handleEdit (id) {//修改回显
         this.show = true
         this.$refs.myDialog.queryUser(id);
       },
