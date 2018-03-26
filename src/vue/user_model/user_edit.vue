@@ -14,7 +14,7 @@
           <el-radio  v-model="user.sex" label="女">女</el-radio>
         </el-form-item>
         <el-form-item label="生日" :label-width="formLabelWidth" prop="birthday">
-          <el-date-picker value-format="yyyy-MM-dd" type="date" :editable="false" v-model="user.birthday" auto-complete="off">
+          <el-date-picker style="width: 100%" value-format="yyyy-MM-dd" type="date" :editable="false" v-model="user.birthday" auto-complete="off">
           </el-date-picker>
         </el-form-item>
       </div>
