@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="修改用户信息" :visible.sync="visible" @close="close('formData')" :close-on-click-modal="false"
+  <el-dialog :title="title" :visible.sync="visible" @close="close('formData')" :close-on-click-modal="false"
              :close-on-press-escape="false">
     <el-form :model="user" ref="formData" :rules="formRules" :label-position="labelPosition">
       <div width="80%">
@@ -29,6 +29,7 @@
   export default {
     data () {
       return {
+        title:"",
         formLabelWidth: '80px',
         labelPosition:'left',
         visible: this.show,
@@ -56,53 +57,82 @@
     },
     watch: {
       show () {
-        this.visible = this.show
+        this.visible = this.show;
       }
     },
     methods: {
       queryUser (id) {//查询用户信息
-        this.$http.get('/api/queryUserById.do', {
-          params: {id: id}
-        }).then(
-          (response) => {
-            // 处理成功的结
-            this.user = response.data
-          }, (response) => {
-            // 处理失败的结果
-            console.log('失败')
-          }
-        )
+        if(id==null || id==""){
+          this.user={};//添加页面重置用户信息
+          this.title="添加页面";
+        }else{
+          this.title="修改页面";
+          this.$http.get('/api/queryUserById.do', {
+            params: {id: id}
+          }).then(
+            (response) => {
+              // 处理成功的结
+              this.user = response.data
+            }, (response) => {
+              // 处理失败的结果
+              console.log('失败')
+            }
+          )
+        }
+
       },
-      updateUser (formData) {//保存用户信息
-        this.$refs[formData].validate((valid) => {
-          if (valid) {
-            var formData = JSON.stringify(this.user)
-            this.$http.get('/api/updateUser.do', {
-              params: {formData: formData}
-            }).then(
-              (response) => {
-                // 处理成功的结
-                if (response.data == 1) {
-                  this.visible = false
-                  this.$message.success('保存成功！')
-                  this.$emit('refreshList')
-                } else {
+      updateUser (form) {//保存用户信息
+        this.$refs[form].validate((valid) => {
+          if (valid) {//数据校验
+            var formData = JSON.stringify(this.user);
+            if(this.user.id==null || this.user.id==""){//ID不存在，则是添加
+              this.$http.get('/api/saveUser.do', {
+                params: {formData: formData}
+              }).then(
+                (response) => {
+                  // 处理成功的结
+                  if (response.data == 1) {
+                    this.$refs[form].resetFields();//重置表单状态
+                    this.visible = false;
+                    this.$message.success('保存成功！');
+                    this.$emit('refreshList');
+                  } else {
+                    this.$message.error('保存失败！');
+                  }
+                }, (response) => {
+                  // 处理失败的结果
+                  console.log('失败')
                   this.$message.error('保存失败！')
                 }
-              }, (response) => {
-                // 处理失败的结果
-                console.log('失败')
-                this.$message.error('保存失败！')
-              }
-            )
+              )
+            }else{//ID存在，修改操作
+              this.$http.get('/api/updateUser.do', {
+                params: {formData: formData}
+              }).then(
+                (response) => {
+                  // 处理成功的结
+                  if (response.data == 1) {
+                    this.$refs[form].resetFields();//重置表单状态
+                    this.visible = false;
+                    this.$message.success('修改成功！');
+                    this.$emit('refreshList');
+                  } else {
+                    this.$message.error('修改失败！')
+                  }
+                }, (response) => {
+                  // 处理失败的结果
+                  console.log('失败')
+                  this.$message.error('保存失败！')
+                }
+              )
+            }
           } else {
-            console.log('error submit!!');
             return false;
           }
         });
       },
       close (formData){//关闭模态窗
-        this.$refs[formData].resetFields();//重置表单校验状态
+        this.$refs[formData].resetFields();//重置表单状态
         this.$emit('update:show', false);//设置父页面show属性为false
       }
     }
