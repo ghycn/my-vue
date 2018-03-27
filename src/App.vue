@@ -2,7 +2,9 @@
     <el-container>
       <div style="background-color: #545c64">
         <div v-show="!isCollapse">
-          <div style="text-align: center;background-color:#263949"><img width="120px" src="./assets/logo.png" /></div>
+          <div style="text-align: center;background-color:#263949">
+            <img width="120px" src="./assets/logo.png" />
+          </div>
         </div>
         <el-menu class="el-menu-vertical" default-active="1" :collapse="isCollapse"
                  background-color="#545c64"
@@ -28,10 +30,6 @@
             <i class="el-icon-setting"></i>
             <span slot="title">导航四</span>
           </el-menu-item>
-          <!--<el-radio-group v-model="isCollapse" style="bottom: 20px;">-->
-            <!--<el-radio-button :label="false">展开</el-radio-button>-->
-            <!--<el-radio-button :label="true">收起</el-radio-button>-->
-          <!--</el-radio-group>-->
         </el-menu>
       </div>
       <el-container>
@@ -53,7 +51,6 @@
     text-align: center;
   }
   .el-menu{
-    /*height: 100%;*/
     border-right: 0px ;
   }
 </style>
@@ -61,9 +58,8 @@
   export default {
     data() {
       return {
-        isCollapse: false,
-        icon:'el-icon-arrow-left'
-      };
+        isCollapse: false//菜单缩放控制
+      }
     },
     methods: {
       shrinkSide (){
