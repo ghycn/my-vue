@@ -44,7 +44,7 @@
       </el-table-column>
     </el-table>
     <!--分页组件-->
-    <div style="margin-top: 10px;">
+    <div style="margin-top: 10px;text-align: center" >
       <el-pagination background
                      @size-change="handleSizeChange"
                      @current-change="handleCurrentChange"
