@@ -1,10 +1,13 @@
 <template>
     <el-container>
-      <div>
+      <div style="background-color: #545c64">
         <div v-show="!isCollapse">
-          <div style="text-align: center;border-bottom: 1px solid #ccc;"><img width="120px" src="./assets/logo.png" /></div>
+          <div style="text-align: center;background-color:#263949"><img width="120px" src="./assets/logo.png" /></div>
         </div>
-        <el-menu class="el-menu-vertical" default-active="1" :collapse="isCollapse" >
+        <el-menu class="el-menu-vertical" default-active="1" :collapse="isCollapse"
+                 background-color="#545c64"
+                 text-color="#fff"
+                 active-text-color="#ffd04b">
           <router-link to="/">
             <el-menu-item index="1">
                 <i class="el-icon-location"></i>
@@ -33,8 +36,8 @@
       </div>
       <el-container>
         <el-header style="line-height: 25px">
-          <div style="float:left;margin-top: 15px;">
-             <i style="cursor: pointer;font-size: 30px" class="el-icon-menu" @click="shrinkSide"></i>
+          <div style="float:left;margin-top: 20px;">
+             <i style="cursor: pointer;font-size: 25px" class="el-icon-menu" @click="shrinkSide"></i>
           </div>
           <div><h2 style="text-align: center">VUE+ELEMENT UI 测试项目</h2></div>
         </el-header>
