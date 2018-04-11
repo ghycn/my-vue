@@ -85,7 +85,7 @@
     methods: {
       refreshList: function () {
         var condition = JSON.stringify(this.condition)
-        this.$http.get('/api/userList.do', {
+        this.$http.get('/api/users/', {
           params: {
             'currentPage': this.pagination.currentPage, 'pagesize': this.pagination.pagesize,
             'condition': condition
@@ -133,7 +133,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.get('/api/deleteUser.do', {
+          this.$http.delete('/api/users/{id}', {
             params: {id: id}
           }).then(
             (response) => {
@@ -146,7 +146,7 @@
               }
             }, (response) => {
               // 处理失败的结果
-              this.$message.error('保存失败！')
+              this.$message.error('删除失败！')
             }
           )
         }).catch(() => {

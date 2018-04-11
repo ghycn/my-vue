@@ -70,8 +70,10 @@
           this.title="添加页面";
         }else{
           this.title="修改页面";
-          this.$http.get('/api/queryUserById.do', {
-            params: {id: id}
+          this.$http.get('/api/users/{id}', {
+            params: {
+              id: id
+            }
           }).then(
             (response) => {
               // 处理成功的结
@@ -87,11 +89,10 @@
       updateUser (form) {//保存用户信息
         this.$refs[form].validate((valid) => {
           if (valid) {//数据校验
-            var formData = JSON.stringify(this.user);
-            if(this.user.id==null || this.user.id==""){//ID不存在，则是添加
-              this.$http.get('/api/saveUser.do', {
-                params: {formData: formData}
-              }).then(
+            var userId = this.user.id
+            if(userId ==null || userId==""){//ID不存在，则是添加
+              this.$http.post('/api/users/', this.user
+              ).then(
                 (response) => {
                   // 处理成功的结
                   if (response.data == 1) {
@@ -109,9 +110,8 @@
                 }
               )
             }else{//ID存在，修改操作
-              this.$http.get('/api/updateUser.do', {
-                params: {formData: formData}
-              }).then(
+              console.log(userId)
+              this.$http.put('/api/users/',this.user).then(
                 (response) => {
                   // 处理成功的结
                   if (response.data == 1) {
@@ -125,7 +125,7 @@
                 }, (response) => {
                   // 处理失败的结果
                   console.log('失败')
-                  this.$message.error('保存失败！')
+                  this.$message.error('修改失败！')
                 }
               )
             }
