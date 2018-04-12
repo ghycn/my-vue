@@ -133,9 +133,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.delete('/api/users/{id}', {
-            params: {id: id}
-          }).then(
+          this.$http.delete('/api/users/'+id,).then(
             (response) => {
               // 处理成功的结
               if (response.data == 1) {

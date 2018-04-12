@@ -70,11 +70,7 @@
           this.title="添加页面";
         }else{
           this.title="修改页面";
-          this.$http.get('/api/users/{id}', {
-            params: {
-              id: id
-            }
-          }).then(
+          this.$http.get('/api/users/'+id).then(
             (response) => {
               // 处理成功的结
               this.user = response.data
