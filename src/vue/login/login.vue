@@ -52,7 +52,7 @@
               type: 'success'
             })
             // 同事跳转到首页，这里使用vue-router实现
-            this.$router.push({path: '/index'})
+            this.$router.push({path: '/'})
           }, (response) => {
             // 处理失败的结果
             console.log('失败')

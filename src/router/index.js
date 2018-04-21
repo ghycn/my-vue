@@ -4,18 +4,17 @@ import Home from '@/vue/user_model/user_list'
 import edit from '@/vue/user_model/user_edit'
 import index from '@/vue/index'
 import login from '@/vue/login/login'
+import noPage from '@/vue/error/404'
 
 Vue.use(Router)
 
 const router = {
   mode:'history',
   routes: [
-    {//默认跳转
-      path: '/',
-      redirect: '/index'
-    },
+    {path: '/',redirect: '/vue'},//默认跳转
+
     {//首页
-      path: '/index',
+      path: '/vue',
       name: 'index',
       meta: {
         // 添加该字段，表示进入这个路由是需要登录的
@@ -24,9 +23,13 @@ const router = {
       component: index,
       children: [
         {
-          path: '/',
+          path: '',
           component:Home
         },
+        {
+          path: '404',
+          component:noPage
+        }
       ]
     },
     {//测试页面
@@ -71,7 +74,7 @@ vueRouter.beforeEach((to, from, next) => {
   const token = sessionStorage.token;
   if (to.matched.length ===0) {
     next({
-      path: '/',
+      path: '/vue/404',
     })
   }
   if (to.matched.some(record => record.meta.requireAuth)){  // 判断该路由是否需要登录权限

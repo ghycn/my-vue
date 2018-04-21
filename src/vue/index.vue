@@ -10,7 +10,7 @@
                background-color="#545c64"
                text-color="#fff"
                active-text-color="#ffd04b">
-        <router-link to="/index">
+        <router-link to="/">
           <el-menu-item index="1">
             <i class="el-icon-location"></i>
             <span slot="title">用户列表</span>
