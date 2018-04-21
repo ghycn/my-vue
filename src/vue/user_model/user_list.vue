@@ -106,7 +106,6 @@
       },
       //每页显示数据量变更
       handleSizeChange: function (val) {
-        console.log(val)
         this.pagination.pagesize = val;
         this.refreshList();
       },
