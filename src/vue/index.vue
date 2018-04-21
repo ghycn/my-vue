@@ -3,7 +3,7 @@
     <div style="background-color: #545c64">
       <div v-show="!isCollapse">
         <div style="text-align: center;background-color:#263949">
-          <!--<img width="120px" src="./assets/logo.png" />-->
+          <img width="120px" src="../assets/logo.png" />
         </div>
       </div>
       <el-menu class="el-menu-vertical" default-active="1" :collapse="isCollapse"

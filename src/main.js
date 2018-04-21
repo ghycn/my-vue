@@ -13,7 +13,7 @@ Vue.use(ElementUI)
 
 
 
-//全局拦截器，每次请求都加上Authorization
+//添加一个请求拦截器
 axios.interceptors.request.use(function (config) {
   console.log("============")
   if (sessionStorage.token) {
@@ -24,27 +24,33 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(err);
 });
 
-
-// //默认导航到登录页
-// router.push('/login')
-
-router.beforeEach((to, from, next) => {
-  const token = sessionStorage.token;
-  if (to.matched.some(record => record.meta.requireAuth)){  // 判断该路由是否需要登录权限
-    if (token) {  // 判断当前的token是否存在
-      next();
-    }
-    else {
-      next({
-        path: '/login',
-        query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
-      })
-    }
+//添加一个响应拦截器
+axios.interceptors.response.use(function (response) {
+  // Do something with response data
+  console.log("++++++++++++")
+  console.log(response)
+  if(response.status=='401'){
+    router.replace({
+      path: '/login',
+      query: {redirect: router.currentRoute.fullPath}
+    })
   }
-  else {
-    next();
+  return response;
+}, function (error) {
+  // Do something with response error
+  console.log("++++++++++++")
+  console.log(error)
+  if(error.response.status==401){//认证失败，自动跳转登录页面
+    router.replace({
+      path: '/login',
+      query: {redirect: router.currentRoute.fullPath}
+    })
   }
+  return Promise.reject(error);
 });
+
+
+
 
 
 /* eslint-disable no-new */
