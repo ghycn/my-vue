@@ -28,8 +28,8 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
   // Do something with response data
   console.log("++++++++++++")
-  console.log(response)
-  if(response.status=='401'){
+  console.log(response.data)
+  if(response.data.status=='401'){
     router.replace({
       path: '/login',
       query: {redirect: router.currentRoute.fullPath}
@@ -39,8 +39,8 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
   // Do something with response error
   console.log("++++++++++++")
-  console.log(error)
-  if(error.response.status==401){//认证失败，自动跳转登录页面
+  console.log(error.data)
+  if(error.response.data.status==401){//认证失败，自动跳转登录页面
     router.replace({
       path: '/login',
       query: {redirect: router.currentRoute.fullPath}
