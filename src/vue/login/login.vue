@@ -7,8 +7,8 @@
       </el-header>
       <el-main>
         <el-form :model="userLogin"  ref="formData" :rules="formRules" status-icon label-width="100px" class="login-style">
-          <el-form-item label="用户名" prop="name">
-            <el-input type="text" v-model="userLogin.name" auto-complete="off"></el-input>
+          <el-form-item label="用户名" prop="username">
+            <el-input type="text" v-model="userLogin.username" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="密  码" prop="password">
             <el-input type="password" v-model="userLogin.password" auto-complete="off"></el-input>
@@ -34,11 +34,11 @@
     data () {
       return {
         userLogin: {
-          name: '',
+          username: '',
           password: ''
         },
         formRules: {
-          name:[
+          username:[
             { required: true, message: '请输入用户名' },
             { min: 2, max: 5, message: '长度在 2 到 5 个字符' }
           ],
@@ -57,14 +57,19 @@
             ).then(
               (response) => {
                 console.log(response.data)
-                sessionStorage.token = response.data.result;
-                this.$notify({
-                  title: '提示信息',
-                  message: '登录成功',
-                  type: 'success'
-                })
-                // 同事跳转到首页，这里使用vue-router实现
-                this.$router.push({path: '/'})
+                if(response.data.status==401){
+                  this.$message.error('登录失败，用户名或密码错误！')
+                }else{
+                  sessionStorage.token = response.data.result;
+                  this.$notify({
+                    title: '提示信息',
+                    message: '登录成功',
+                    type: 'success'
+                  })
+                  // 同事跳转到首页，这里使用vue-router实现
+                  this.$router.push({path: '/'})
+                }
+
               }, (response) => {
                 // 处理失败的结果
                 console.log('失败')

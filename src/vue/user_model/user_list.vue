@@ -3,7 +3,7 @@
     <div>
       <el-form  :inline="true" :model="condition" class="demo-form-inline search-form-custom">
         <el-form-item label="姓名">
-          <el-input v-model="condition.name" placeholder="请输入姓名"></el-input>
+          <el-input v-model="condition.username" placeholder="请输入姓名"></el-input>
         </el-form-item>
         <el-form-item label="性别">
           <el-select v-model="condition.sex" placeholder="请选择">
@@ -24,7 +24,7 @@
       align="left"
       stripe
       style="width: 100%">
-      <el-table-column sortable prop="name" label="姓名" width="180"></el-table-column>
+      <el-table-column sortable prop="username" label="姓名" width="180"></el-table-column>
       <el-table-column sortable prop="sex" label="性别"></el-table-column>
       <el-table-column sortable prop="age" label="年龄"></el-table-column>
       <el-table-column sortable prop="birthday" label="生日"></el-table-column>
@@ -64,7 +64,7 @@
     data () {
       return {
         condition: {
-          name: null,
+          username: null,
           sex: null
         },
         pagination: {//分页对象

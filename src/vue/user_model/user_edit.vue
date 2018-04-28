@@ -3,8 +3,8 @@
              :close-on-press-escape="false">
     <el-form :model="user" ref="formData" :rules="formRules" :label-position="labelPosition">
       <div width="80%">
-        <el-form-item label="名称" :label-width="formLabelWidth"  prop="name">
-          <el-input v-model="user.name" auto-complete="off"></el-input>
+        <el-form-item label="名称" :label-width="formLabelWidth"  prop="username">
+          <el-input v-model="user.username" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="年龄" :label-width="formLabelWidth"  prop="age">
           <el-input v-model.number="user.age" auto-complete="off"></el-input>
@@ -35,7 +35,7 @@
         visible: this.show,
         user: {},
         formRules: {
-          name:[
+          username:[
             { required: true, message: '请输入姓名' },
             { min: 2, max: 5, message: '长度在 2 到 5 个字符' }
           ],

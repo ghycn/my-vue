@@ -30,10 +30,11 @@ axios.interceptors.response.use(function (response) {
   console.log("++++++++++++")
   console.log(response.data)
   if(response.data.status=='401'){
-    router.replace({
-      path: '/login',
-      query: {redirect: router.currentRoute.fullPath}
-    })
+    this.$router.push({path: '/'})
+    // router.replace({
+    //   path: '/login',
+    //   query: {redirect: router.currentRoute.fullPath}
+    // })
   }
   return response;
 }, function (error) {
@@ -41,10 +42,11 @@ axios.interceptors.response.use(function (response) {
   console.log("++++++++++++")
   console.log(error.data)
   if(error.response.data.status==401){//认证失败，自动跳转登录页面
-    router.replace({
-      path: '/login',
-      query: {redirect: router.currentRoute.fullPath}
-    })
+    this.$router.push({path: '/'})
+    // router.replace({
+    //   path: '/login',
+    //   query: {redirect: router.currentRoute.fullPath}
+    // })
   }
   return Promise.reject(error);
 });
